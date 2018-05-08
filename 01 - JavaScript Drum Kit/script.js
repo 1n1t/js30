@@ -8,11 +8,16 @@ const drumKit = (function drumKitModule() {
   return publicApi;
 
   function play() {
-    registerListener();
+    registerListeners();
   }
 
-  function registerListener() {
+  function registerListeners() {
     document.body.addEventListener('keydown', onKeyDownHandler);
+    document
+      .querySelectorAll('.key')
+      .forEach(key =>
+        key.addEventListener('transitionend', onKeyTransitionEndHandler)
+      );
   }
 
   function onKeyDownHandler(event) {
@@ -23,17 +28,21 @@ const drumKit = (function drumKitModule() {
     }
   }
 
+  function onKeyTransitionEndHandler(event) {
+    if (event.propertyName != 'transform') return;
+    event.target.classList.remove('playing');
+    console.log(event);
+  }
+
   function playSound(code) {
     var sound = document.querySelector(`audio[data-key="${code}"]`);
+    sound.currentTime = 0;
     sound.play();
   }
 
   function animateKey(code) {
     var key = document.querySelector(`.key[data-key="${code}"]`);
     key.classList.add('playing');
-    setTimeout(() => {
-      key.classList.remove('playing');
-    }, 100);
   }
 })();
 
