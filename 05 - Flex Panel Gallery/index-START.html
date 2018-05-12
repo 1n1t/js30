@@ -24,6 +24,7 @@
     .panels {
       min-height:100vh;
       overflow: hidden;
+      display: flex;
     }
 
     .panel {
@@ -41,6 +42,10 @@
       font-size: 20px;
       background-size:cover;
       background-position:center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
 
@@ -68,6 +73,18 @@
 
     .panel.open {
       font-size:40px;
+      flex: 5;
+    }
+
+    .panel p:first-child {
+      transform: translateY(-50vh);
+    }
+    .panel p:last-child {
+      transform: translateY(50vh);
+    }
+
+    .panel p.open {
+      transform: translateY(0);
     }
 
   </style>
@@ -101,9 +118,8 @@
     </div>
   </div>
 
-  <script>
-
-  </script>
+  <script src="script.js">
+</script>
 
 
 
